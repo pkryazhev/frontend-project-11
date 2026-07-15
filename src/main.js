@@ -1,3 +1,3 @@
-import './styles.css';
+import './styles.css'
 
-console.log('RSS Aggregator');
+console.log('RSS Aggregator')
