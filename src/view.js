@@ -2,7 +2,6 @@ import { snapshot, subscribe } from 'valtio/vanilla'
 import i18next from 'i18next'
 
 const input = document.querySelector('input')
-const rssContainer = document.querySelector('div#rssDataContainer')
 
 const render = (state) => {
   const snapshotState = snapshot(state)
@@ -13,40 +12,41 @@ const render = (state) => {
   }
 }
 
-const renderRss = (state) => {
-  const snapshotState = snapshot(state).rssList
-  const feedsContainer = document.createElement('div')
-  feedsContainer.classList.add('feeds-container')
-  const itemsContainer = document.createElement('div')
-  itemsContainer.classList.add('items-container')
-  snapshotState.forEach((rss) => {
-    const data = rss.data
-    console.log(data)
+const renderFeeds = (state) => {
+  const feeds = snapshot(state).feeds
+  const feedsContainer = document.querySelector('div.feeds-container')
+  const feedContainers = feeds.map((feed) => {
     const feedContainer = document.createElement('div')
-    feedContainer.id = data.id
+    feedContainer.id = feed.id
     feedContainer.classList.add('feed-container')
     const feedTitle = document.createElement('p')
-    feedTitle.textContent = data.title
+    feedTitle.textContent = feed.title
     const feedDescription = document.createElement('p')
-    feedDescription.textContent = data.description
+    feedDescription.textContent = feed.description
     feedContainer.append(feedTitle)
     feedContainer.append(feedDescription)
-    feedsContainer.append(feedContainer)
-    data.itemsList.forEach((item) => {
-      const itemContainer = document.createElement('div')
-      itemContainer.id = item.item_id
-      itemContainer.setAttribute('feed_id', data.id)
-      itemContainer.classList.add('item-container')
-      const itemName = document.createElement('p')
-      const itemLink = document.createElement('p')
-      itemName.textContent = item.title
-      itemLink.textContent = item.link
-      itemContainer.append(itemName)
-      itemContainer.append(itemLink)
-      itemsContainer.append(itemContainer)
-    })
+    return feedContainer
   })
-  rssContainer.replaceChildren(feedsContainer, itemsContainer)
+  feedsContainer.replaceChildren(...feedContainers)
+}
+
+const renderPosts = (state) => {
+  const posts = snapshot(state).posts
+  const postsContainer = document.querySelector('div.posts-container')
+  const postContainers = posts.map((post) => {
+    const postContainer = document.createElement('div')
+    postContainer.id = post.id
+    postContainer.setAttribute('feedId', post.feedId)
+    postContainer.classList.add('item-container')
+    const itemName = document.createElement('p')
+    const itemLink = document.createElement('p')
+    itemName.textContent = post.title
+    itemLink.textContent = post.link
+    postContainer.append(itemName)
+    postContainer.append(itemLink)
+    return postContainer
+  })
+  postsContainer.replaceChildren(...postContainers)
 }
 
 export const initView = (state) => {
@@ -56,6 +56,7 @@ export const initView = (state) => {
   label.textContent = i18next.t('input_label')
   subscribe(state, () => {
     render(state)
-    renderRss(state)
+    renderFeeds(state)
+    renderPosts(state)
   })
 }

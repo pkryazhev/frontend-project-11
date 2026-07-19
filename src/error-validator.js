@@ -1,5 +1,11 @@
 import i18next from 'i18next'
 
+export const addErrorToState = (error, state) => {
+  const errorMessage = validateError(error)
+  state.isValid = false
+  state.errorMessage = errorMessage
+}
+
 export const validateError = (error) => {
   if (error.name === 'ValidationError') {
     return error.errors[0]
@@ -10,5 +16,5 @@ export const validateError = (error) => {
   if (error.message === 'rss_duplicate_error') {
     return i18next.t('rss_duplicate_error')
   }
-  return i18next.t('network_error')
+  return error
 }
