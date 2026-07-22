@@ -25,14 +25,14 @@ const render = (state) => {
 const renderFeeds = (state) => {
   const feeds = snapshot(state).feeds
   const feedsCard = document.querySelector('div#feeds-container')
-  const feedsContainer = document.querySelector('div#feeds-container > div.list-group')
+  const feedsContainer = document.querySelector('div#feeds-container > ul.list-group')
   const feedsHeader = document.querySelector('div#feeds-container > div.card-body > h2')
   if (feeds.length > 0) {
     feedsCard.classList.remove('d-none')
     feedsHeader.textContent = i18next.t('feeds_header')
   }
   const feedContainers = feeds.map((feed) => {
-    const feedContainer = document.createElement('div')
+    const feedContainer = document.createElement('li')
     feedContainer.classList.add('list-group-item', 'feed-container')
     feedContainer.id = feed.id
     const feedTitle = document.createElement('h3')
@@ -49,14 +49,14 @@ const renderFeeds = (state) => {
 const renderPosts = (state) => {
   const posts = snapshot(state).posts
   const postsCard = document.querySelector('div#posts-container')
-  const postsContainer = document.querySelector('div#posts-container > div.list-group')
+  const postsContainer = document.querySelector('div#posts-container > ul.list-group')
   const postsHeader = document.querySelector('div#posts-container > div.card-body > h2')
   if (posts.length > 0) {
     postsCard.classList.remove('d-none')
     postsHeader.textContent = i18next.t('posts_header')
   }
   const postContainers = posts.map((post) => {
-    const postContainer = document.createElement('div')
+    const postContainer = document.createElement('li')
     postContainer.classList.add('list-group-item')
     postContainer.dataset.postId = post.id
     const flexPostContainer = document.createElement('div')

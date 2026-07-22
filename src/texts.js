@@ -13,7 +13,7 @@ export const initI18Next = () => {
           button_text: 'Добавить',
           input_label: 'Ссылка RSS',
           ok_message: 'RSS успешно загружен',
-          xml_parsing_error: 'Ошибка чтения RSS',
+          xml_parsing_error: 'Ресурс не содержит валидный RSS',
           network_error: 'Ошибка сети',
           rss_duplicate_error: 'RSS уже существует',
           modal_close_button_text: 'Закрыть',
