@@ -13,15 +13,15 @@ export const normalizeData = (parsedData, id) => {
     description: parsedData.feed.description,
     id: feedId,
   }
-  const posts = []
-  // todo: поменять на map
-  parsedData.itemsList.forEach((item) => {
-    posts.push({
+  const posts = parsedData.itemsList.map((item) => {
+    return {
       title: item.title,
       link: item.link,
       id: uniqueId(),
       feedId: feedId,
-    })
+      description: item.description,
+      isRead: false,
+    }
   })
   return {
     feed,

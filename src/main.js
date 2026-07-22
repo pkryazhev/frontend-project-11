@@ -16,6 +16,7 @@ const run = () => {
   const state = proxy({
     isValid: true,
     updatesStarted: false,
+    modalPostId: null,
     errorMessage: 'OK',
     feeds: [],
     posts: [],
@@ -63,6 +64,17 @@ const run = () => {
           .catch((err) => {
             addErrorToState(err, state)
           })
+      })
+      const postsContainer = document.querySelector('div#posts-container')
+      postsContainer.addEventListener('click', (event) => {
+        if (event.target.hasAttribute('data-post-id')) {
+          const id = event.target.dataset.postId
+          const clickedPost = state.posts.find(post => post.id === id)
+          clickedPost.isRead = true
+          if (event.target.tagName === 'BUTTON') {
+            state.modalPostId = clickedPost.id
+          }
+        }
       })
     })
     .catch((err) => {

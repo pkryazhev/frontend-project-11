@@ -11,7 +11,8 @@ export const parseXML = (xmlString) => {
     items.forEach((item) => {
       const title = item.querySelector('title').textContent
       const link = item.querySelector('link').textContent
-      itemsList.push({ title, link })
+      const description = item.querySelector('description').textContent
+      itemsList.push({ title, link, description })
     })
     result.itemsList = itemsList
   }

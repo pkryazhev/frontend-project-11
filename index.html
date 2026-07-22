@@ -3,19 +3,67 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="./src/styles.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RSS агрегатор</title>
   </head>
+
   <body>
-    <div id="app">
-      <form name="app-form">
-        <input id="rss-url">
-        <label for="rss-url">Ссылка RSS</label>
-        <button></button>
-      </form>
-      <div id="rssDataContainer">
-        <div class="feeds-container"></div>
-        <div class="posts-container"></div>
+    <div class="container">
+      <div id="app">
+        <div class="bg-dark text-light py-5 px-3">
+          <form name="app-form">
+            <div class="col-6 mx-auto">
+              <h1></h1>
+              <h5></h5>
+              <div class="input-group">
+                <div class="form-floating">
+                  <input class="form-control" id="rss-url" />
+                  <label for="rss-url"></label>
+                </div>
+                <button class="btn btn-primary ms-2"></button>
+              </div>
+              <p>Пример: https://lorem-rss.hexlet.app/feed</p>
+              <p id="validation-message"></p>
+            </div>
+          </form>
+        </div>
+
+        <div class="modal" tabindex="-1" id="postModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p></p>
+              </div>
+              <div class="modal-footer">
+                <a class="btn btn-primary" target="_blank"></a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" id="rssDataContainer">
+          <div class="col-8">
+            <div class="card d-none" id="posts-container">
+              <div class="card-body">
+                <h2></h2>
+              </div>
+              <div class="list-group"></div>
+            </div>
+          </div>
+          <div class="col-4 align-self-start">
+            <div class="card d-none" id="feeds-container">
+              <div class="card-body">
+                <h2></h2>
+              </div>
+              <div class="list-group"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <script type="module" src="/src/main.js"></script>

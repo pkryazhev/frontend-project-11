@@ -16,5 +16,5 @@ export const validateError = (error) => {
   if (error.message === 'rss_duplicate_error') {
     return i18next.t('rss_duplicate_error')
   }
-  return error
+  return i18next.t('network_error')
 }
